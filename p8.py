@@ -1,35 +1,16 @@
-text = input("Введіть текст для аналізу: ")
-output_format = input("Формат результату (list/set/dict): ").strip().lower()
-frequency_target = int(input("Введіть кількість повторень для фільтрації: "))
+multiples = [n for n in range(1, 101) if n % 3 == 0 and n % 5 != 0]
+print(multiples)
 
+celsius = [0, 10, 20, 30, 40, 100]
+fahrenheit = [c * 9/5 + 32 for c in celsius]
+print(fahrenheit)
 
-def count_characters(text):
-    freq = {}
-    for char in text:
-        freq[char] = freq.get(char, 0) + 1
-    return freq
+even_squares = [n**2 for n in range(1, 51) if n % 2 == 0]
+print(even_squares)
 
+text = "Python is amazing and powerful language"
+lengths = [len(word) for word in text.split()]
+print(lengths)
 
-char_frequency = count_characters(text)
-unique_chars = set(text)
-filtered = [char for char, count in char_frequency.items() if count == frequency_target]
-
-
-print("\n=== Частота символів ===")
-if output_format == "dict":
-    print(char_frequency)
-elif output_format == "set":
-    print(set(char_frequency.items()))
-elif output_format == "list":
-    print(list(char_frequency.items()))
-else:
-    print("Невідомий формат. Використано словник за замовчуванням.")
-    print(char_frequency)
-
-
-print("\n=== Унікальні символи ===")
-print(unique_chars)
-
-
-print(f"\n=== Символи, що зустрічаються рівно {frequency_target} раз(и) ===")
-print(filtered)
+composites = [n for n in range(1, 101) if n > 1 and len([d for d in range(2, n) if n % d == 0]) > 0]
+print(composites)
