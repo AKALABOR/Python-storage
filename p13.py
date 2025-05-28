@@ -1,82 +1,73 @@
-import argparse
-import os
-
-def create_file(path):
-    """Створює новий текстовий файл і записує туди декілька рядків."""
-    print(f"Введіть текст для файлу (щоб завершити — введіть рядок із одним символом точка «.»):")
+def simple_text_editor():
+    filename = input("1) Новий файл – введіть ім'я файлу (з розширенням, напр. file.txt): ")
+    print("Вводьте текст. Для завершення введення введіть порожній рядок.")
     lines = []
     while True:
         line = input()
-        if line.strip() == '.':
+        if line == "":
             break
         lines.append(line)
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write('\n'.join(lines))
-    print(f"\nФайл '{path}' успішно створено. Вміст файлу:")
-    print('-' * 40)
-    with open(path, 'r', encoding='utf-8') as f:
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    print(f"\nФайл '{filename}' збережено. Вміст файлу:")
+    with open(filename, "r", encoding="utf-8") as f:
         print(f.read())
-    print('-' * 40)
 
-def analyze_file(path):
-    """Підраховує кількість рядків, слів і символів у файлі."""
-    if not os.path.isfile(path):
-        print(f"Файл '{path}' не знайдено.")
+def analyze_file():
+    filename = input("2) Аналіз – введіть ім'я файлу для аналізу: ")
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except FileNotFoundError:
+        print(f"Файл '{filename}' не знайдено.")
         return
-    n_lines = n_words = n_chars = 0
-    with open(path, 'r', encoding='utf-8') as f:
-        for line in f:
-            n_lines += 1
-            n_chars += len(line)
-            n_words += len(line.split())
-    # Вивід у структурованому вигляді
-    print(f"Аналіз файлу '{path}':")
-    print(f"{'Рядків':<15}{'Слів':<10}{'Символів':<10}")
-    print(f"{'-'*35}")
-    print(f"{n_lines:<15}{n_words:<10}{n_chars:<10}")
+    num_lines = len(lines)
+    num_words = sum(len(line.split()) for line in lines)
+    num_chars = sum(len(line) for line in lines)
+    print(f"\nАналіз файлу '{filename}':")
+    print(f"{'Показник':<10} {'Кількість':>10}")
+    print("-" * 22)
+    print(f"{'Рядків':<10} {num_lines:>10}")
+    print(f"{'Слів':<10} {num_words:>10}")
+    print(f"{'Символів':<10} {num_chars:>10}")
 
-def replace_in_file(src_path, dst_path, old, new):
-    """Шукає й замінює всі входження old → new, зберігає результат у новому файлі."""
-    if not os.path.isfile(src_path):
-        print(f"Файл '{src_path}' не знайдено.")
+
+def search_and_replace():
+    original_file = input("3) Пошук/заміна – введіть ім'я файлу для обробки: ")
+    try:
+        with open(original_file, "r", encoding="utf-8") as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"Файл '{original_file}' не знайдено.")
         return
-    with open(src_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-    replaced = content.replace(old, new)
-    with open(dst_path, 'w', encoding='utf-8') as f:
-        f.write(replaced)
-    print(f"У файлі '{src_path}' замінено всі '{old}' → '{new}'.")
-    print(f"Результат збережено в '{dst_path}'.")
+    search_word = input("   Слово/фразу для пошуку: ")
+    replace_word = input("   Слово/фразу для заміни: ")
+    new_content = content.replace(search_word, replace_word)
+    new_file = input("   Ім'я нового файлу для збереження: ")
+    with open(new_file, "w", encoding="utf-8") as f:
+        f.write(new_content)
+    print(f"Зміни збережено у файлі '{new_file}'.")
 
-def main():
-    parser = argparse.ArgumentParser(
-        description="Простий текстовий редактор / аналізатор / пошук і заміна"
-    )
-    subparsers = parser.add_subparsers(dest='command', required=True)
 
-    # Завдання 1: create
-    p1 = subparsers.add_parser('create', help='Створити новий текстовий файл')
-    p1.add_argument('filepath', help='Шлях до нового файлу')
+def main_menu():
+    while True:
+        print("\n=== ГОЛОВНЕ МЕНЮ ===")
+        print("1. Створити новий текстовий файл")
+        print("2. Аналіз вмісту файлу")
+        print("3. Пошук і заміна в файлі")
+        print("4. Вихід")
+        choice = input("Виберіть дію (1–4): ")
+        if choice == "1":
+            simple_text_editor()
+        elif choice == "2":
+            analyze_file()
+        elif choice == "3":
+            search_and_replace()
+        elif choice == "4":
+            print("До побачення!")
+            break
+        else:
+            print("Невірний вибір. Спробуйте ще раз.")
 
-    # Завдання 2: analyze
-    p2 = subparsers.add_parser('analyze', help='Аналіз вмісту файлу')
-    p2.add_argument('filepath', help='Шлях до існуючого файлу')
-
-    # Завдання 3: replace
-    p3 = subparsers.add_parser('replace', help='Пошук і заміна в файлі')
-    p3.add_argument('source', help='Шлях до оригінального файлу')
-    p3.add_argument('destination', help='Шлях до файлу з результатом')
-    p3.add_argument('old', help='Слово/фразу для заміни')
-    p3.add_argument('new', help='Нове слово/фразу')
-
-    args = parser.parse_args()
-
-    if args.command == 'create': 
-        create_file(args.filepath)
-    elif args.command == 'analyze':
-        analyze_file(args.filepath)
-    elif args.command == 'replace':
-        replace_in_file(args.source, args.destination, args.old, args.new)
-
-if __name__ == '__main__':
-    main()
+if __name__ == "__main__":
+    main_menu()
