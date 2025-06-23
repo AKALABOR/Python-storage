@@ -1,0 +1,33 @@
+[
+    {
+        "student_id": "S001",
+        "name": "Іван Петренко",
+        "assigned_tasks": [
+            1,
+            3
+        ]
+    },
+    {
+        "student_id": "S002",
+        "name": "Марія Коваленко",
+        "assigned_tasks": [
+            2
+        ]
+    },
+    {
+        "student_id": "S003",
+        "name": "Петро Іваненко",
+        "assigned_tasks": [
+            1,
+            2,
+            3
+        ]
+    },
+    {
+        "student_id": "001",
+        "name": "Антон",
+        "assigned_tasks": [
+            2
+        ]
+    }
+]

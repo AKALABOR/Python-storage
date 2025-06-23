@@ -1,0 +1,90 @@
+[
+    {
+        "student": "Іван Петренко",
+        "results": [
+            {
+                "task_id": 1,
+                "matched_keywords": [
+                    "csv"
+                ],
+                "missing_keywords": [
+                    "pandas",
+                    "statistics"
+                ]
+            },
+            {
+                "task_id": 3,
+                "matched_keywords": [],
+                "missing_keywords": [
+                    "asyncio",
+                    "aiohttp",
+                    "json"
+                ]
+            }
+        ]
+    },
+    {
+        "student": "Марія Коваленко",
+        "results": [
+            {
+                "task_id": 2,
+                "matched_keywords": [
+                    "json"
+                ],
+                "missing_keywords": [
+                    "matplotlib",
+                    "plot"
+                ]
+            }
+        ]
+    },
+    {
+        "student": "Петро Іваненко",
+        "results": [
+            {
+                "task_id": 1,
+                "matched_keywords": [
+                    "csv"
+                ],
+                "missing_keywords": [
+                    "pandas",
+                    "statistics"
+                ]
+            },
+            {
+                "task_id": 2,
+                "matched_keywords": [
+                    "json"
+                ],
+                "missing_keywords": [
+                    "matplotlib",
+                    "plot"
+                ]
+            },
+            {
+                "task_id": 3,
+                "matched_keywords": [],
+                "missing_keywords": [
+                    "asyncio",
+                    "aiohttp",
+                    "json"
+                ]
+            }
+        ]
+    },
+    {
+        "student": "Антон",
+        "results": [
+            {
+                "task_id": 2,
+                "matched_keywords": [
+                    "json"
+                ],
+                "missing_keywords": [
+                    "matplotlib",
+                    "plot"
+                ]
+            }
+        ]
+    }
+]
